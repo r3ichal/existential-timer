@@ -6,35 +6,13 @@ import { Routes, Route } from "react-router-dom";
 import { PrivateRoute } from "@utils/PrivateRoute";
 import { PublicRoute } from "@utils/PublicRoute";
 import { routes } from "@config/router";
-
+import Timer from "./Timer/Timer";
+import Header from "./Header/Header";
 const App = () => {
   return (
     <>
-      <Routes>
-        {routes.map(({ Component, isPrivate, isPublicOnly, ...route }) => (
-          <Route
-            {...route}
-            element={
-              isPrivate ? (
-                <PrivateRoute>
-                  <Component />
-                </PrivateRoute>
-              ) : (
-                <PublicRoute isPublicOnly={isPublicOnly}>
-                  <Component />
-                </PublicRoute>
-              )
-            }
-          />
-        ))}
-      </Routes>
-      <h1
-        onClick={() => {
-          alert("Happy hacking! :)");
-        }}
-      >
-        Happy hacking ! :)
-      </h1>
+      <Header></Header>
+      <Timer></Timer>
     </>
   );
 };

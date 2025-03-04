@@ -1,4 +1,5 @@
-// actions types
-const TEST_TYPE = "TEST/ACTION";
+const SET_TIMER = "TIMER/SET";
+const DECREASE_TIMER = "TIMER/DECREASE";
+const RESET_TIMER = "TIMER/RESET";
 
-export { TEST_TYPE };
+export { SET_TIMER, DECREASE_TIMER, RESET_TIMER };

@@ -1,5 +1,16 @@
 @import "reset.scss";
 
+// * {
+//   outline: 1px solid red;
+// }
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
 .App {
   text-align: center;
   margin: 90px auto;

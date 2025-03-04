@@ -1,6 +1,8 @@
 import { createAction } from "@reduxjs/toolkit";
-import { TEST_TYPE } from "@store/types";
+import { SET_TIMER, DECREASE_TIMER, RESET_TIMER } from "@store/types";
 
-const TEST_ACTION = createAction(TEST_TYPE);
+const setTimer = createAction(SET_TIMER);
+const decreaseTimer = createAction(DECREASE_TIMER);
+const resetTimer = createAction(RESET_TIMER);
 
-export { TEST_ACTION };
+export { setTimer, decreaseTimer, resetTimer };

@@ -1,11 +1,21 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
-import { TEST_ACTION } from "@store/actions";
+import { SET_TIMER, DECREASE_TIMER, RESET_TIMER } from "@store/types";
 
-const initialState = { items: ["item-1", "item-2", "item-3"] };
+const initialState = { timeLeft: 0 };
 
-const test = createReducer(initialState, {
-  [TEST_ACTION]: (_, action) => action.payload,
+const timer = createReducer(initialState, {
+  [SET_TIMER]: (state, action) => {
+    state.timeLeft = action.payload;
+  },
+  [DECREASE_TIMER]: (state) => {
+    if (state.timeLeft > 0) {
+      state.timeLeft -= 1;
+    }
+  },
+  [RESET_TIMER]: (state) => {
+    state.timeLeft = 0;
+  },
 });
 
-export default combineReducers({ test: test });
+export default combineReducers({ timer });

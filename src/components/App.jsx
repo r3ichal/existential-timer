@@ -8,11 +8,14 @@ import { PublicRoute } from "@utils/PublicRoute";
 import { routes } from "@config/router";
 import Timer from "./Timer/Timer";
 import Header from "./Header/Header";
+import Footer from "./Footer/Footer";
+
 const App = () => {
   return (
     <>
       <Header></Header>
       <Timer></Timer>
+      <Footer></Footer>
     </>
   );
 };

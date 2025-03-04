@@ -4,6 +4,7 @@ import { setTimer, decreaseTimer, resetTimer } from "@store/actions";
 import styles from "./Timer.module.scss";
 //TODO: Make a settings modal to select theme, language and timer output view (full like right now or just numbers)
 //TODO: More quotes
+//TODO: store the final date rather than just seconds left, so that when you return to the timer you would still have up-to-date info
 
 
 

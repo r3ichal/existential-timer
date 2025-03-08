@@ -6,9 +6,6 @@ import styles from "./Timer.module.scss";
 //TODO: More quotes
 //TODO: store the final date rather than just seconds left, so that when you return to the timer you would still have up-to-date info
 
-
-
-
 const existentialQuotes = [
   "Time is slipping, better do something.",
   "While you're here, why not get some coffee?",
@@ -29,18 +26,38 @@ const appendixes = [
 
 const Timer = () => {
   const dispatch = useDispatch();
-  const timeLeft = useSelector((state) => state.timer.timeLeft);
+  const endDate = useSelector((state) => state.timer.endDate);
   const [randomMessage, setRandomMessage] = useState("");
+  const [timeLeft, setTimeLeft] = useState(0);
 
   useEffect(() => {
-    if (timeLeft > 0) {
+    const remainingTime = endDate - Date.now();
+    setTimeLeft(remainingTime);
+    dispatch(decreaseTimer());
+  })
+  useEffect(() => {
+    if (endDate) {
       const interval = setInterval(() => {
+        const remainingTime = endDate - Date.now();
+        setTimeLeft(remainingTime);
         dispatch(decreaseTimer());
       }, 1000);
 
       return () => clearInterval(interval);
     }
-  }, [timeLeft, dispatch]);
+  }, [endDate, dispatch]);
+
+  useEffect(() => {
+    if (endDate) {
+      const interval = setInterval(() => {
+        const remainingTime = endDate - Date.now();
+        setTimeLeft(remainingTime);
+        dispatch(decreaseTimer());
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [endDate, dispatch]);
 
   useEffect(() => {
     const updateQuote = () => {
@@ -49,20 +66,21 @@ const Timer = () => {
       const appendix =
         appendixes[Math.floor(Math.random() * appendixes.length)];
       setRandomMessage(
-        quote.replace("{days}", Math.floor(timeLeft / 86400)) + appendix
+        quote.replace("{days}", Math.floor((endDate - Date.now()) / 86400 / 1000)) + appendix
       );
     };
 
     updateQuote();
-    const interval = setInterval(updateQuote, 10000);
+    const interval = setInterval(updateQuote, 7500);
 
     return () => clearInterval(interval);
   }, []);
 
   const startTimer = () => {
     const years = prompt("Enter years left:"); //TODO: should open a form to input user's age, and then calculate the "death" date for user.
+    const dateEnd = Date.now() + years * 365 * 24 * 60 * 60 * 1000;
     if (years && !isNaN(years)) {
-      dispatch(setTimer(years * 365 * 24 * 60 * 60));
+      dispatch(setTimer(dateEnd)); 
     }
   };
 
@@ -73,19 +91,17 @@ const Timer = () => {
       <h1 className={styles.timer__title}>Existential Timer</h1>
       <h1 className={styles.timer__subtitle}>You approximately have around:</h1>
       <p className={styles.timer__time}>
-        {Math.floor(timeLeft / (365 * 24 * 60 * 60))} years{" "}
-        {Math.floor((timeLeft % (365 * 24 * 60 * 60)) / (30 * 24 * 60 * 60))}
-        months {Math.floor(
-          (timeLeft % (30 * 24 * 60 * 60)) / (24 * 60 * 60)
-        )}{" "}
-        days {Math.floor((timeLeft % (24 * 60 * 60)) / (60 * 60))} hours{" "}
-        {Math.floor((timeLeft % (60 * 60)) / 60)} minutes{" "}
-        {Math.floor(timeLeft % 60)} seconds
+        {Math.floor(timeLeft / (365 * 24 * 60 * 60 * 1000))} years {" "}
+        {Math.floor((timeLeft % (365 * 24 * 60 * 60 * 1000)) / (30 * 24 * 60 * 60 * 1000))} months{" "}
+        {Math.floor((timeLeft % (30 * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000))} days{" "}
+        {Math.floor((timeLeft % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000))} hours{" "}
+        {Math.floor((timeLeft % (60 * 60 * 1000)) / (60 * 1000))} minutes{" "} 
+        {Math.floor(timeLeft % (60 * 1000) / 1000)} seconds left.
         {/* {Math.floor(timeLeft / (365 * 24 * 60 * 60))}:
         {Math.floor((timeLeft % (365 * 24 * 60 * 60)) / (30 * 24 * 60 * 60))}:
         {Math.floor((timeLeft % (30 * 24 * 60 * 60)) / (24 * 60 * 60))}:
         {Math.floor((timeLeft % (24 * 60 * 60)) / (60 * 60))}:
-        {Math.floor((timeLeft % (60 * 60)) / 60)}:{Math.floor(timeLeft % 60)} */} 
+        {Math.floor((timeLeft % (60 * 60)) / 60)}:{Math.floor(timeLeft % 60)} */}
       </p>
       <p className={styles.timer__quote}>{randomMessage}</p>
       <div className={styles["timer__button-wrapper"]}>

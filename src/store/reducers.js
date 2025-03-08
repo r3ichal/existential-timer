@@ -6,7 +6,7 @@ const initialState = { timeLeft: 0 };
 
 const timer = createReducer(initialState, {
   [SET_TIMER]: (state, action) => {
-    state.timeLeft = action.payload;
+    state.endDate = action.payload;
   },
   [DECREASE_TIMER]: (state) => {
     if (state.timeLeft > 0) {

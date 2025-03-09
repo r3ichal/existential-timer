@@ -1,8 +1,8 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
-import { SET_TIMER, DECREASE_TIMER, RESET_TIMER } from "@store/types";
+import { SET_TIMER, DECREASE_TIMER, RESET_TIMER, SET_TIMER_STYLE } from "@store/types";
 
-const initialState = { timeLeft: 0 };
+const initialState = { timeLeft: 0, endDate:null, style: false };
 
 const timer = createReducer(initialState, {
   [SET_TIMER]: (state, action) => {
@@ -15,6 +15,10 @@ const timer = createReducer(initialState, {
   },
   [RESET_TIMER]: (state) => {
     state.timeLeft = 0;
+    state.endDate = null;
+  },
+  [SET_TIMER_STYLE]: (state, action) => {
+    state.style = action.payload;
   },
 });
 

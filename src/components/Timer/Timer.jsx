@@ -28,10 +28,10 @@ const appendixes = [
 const Timer = () => {
   const dispatch = useDispatch();
   const endDate = useSelector((state) => state.timer.endDate);
+  const isShortFormat = useSelector(getStyle);
   const [randomMessage, setRandomMessage] = useState("");
   const [timeLeft, setTimeLeft] = useState(0);
-  const initialStyle = useSelector(getStyle);
-  const [isShortFormat, setShortFormat] = useState(initialStyle);
+
 
   useEffect(() => {
     const remainingTime = endDate - Date.now();
@@ -93,27 +93,12 @@ const Timer = () => {
     }
   };
 
-  const toggleStyle = () => {
-    const newStyle = !isShortFormat;
-    setShortFormat(newStyle);
-    dispatch(setStyle(newStyle));
-    console.log(timeLeft);
-  };
 
   const reset = () => dispatch(resetTimer());
 
   return (
     <section className={styles.timer}>
-      <label htmlFor="timerStyleToggle" className={styles.toggleLabel}>
-        Switch Timer Style
-      </label>
-      <input
-        type="checkbox"
-        id="timerStyleToggle"
-        checked={isShortFormat}
-        onChange={toggleStyle}
-        className={styles.toggleInput}
-      />
+      
       <h1 className={styles.timer__title}>Existential Timer</h1>
       <h1 className={styles.timer__subtitle}>You approximately have around:</h1>
       <p className={styles.timer__time}>

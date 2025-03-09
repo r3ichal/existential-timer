@@ -77,9 +77,9 @@
 
 .navList {
   display: flex;
+  align-items: center;
   gap: 12px;
 }
-
 
 .navLink {
   display: inline-block;
@@ -146,7 +146,6 @@
   }
 }
 
-
 .authLinks {
   display: flex;
   gap: 12px;
@@ -172,6 +171,45 @@
   gap: 4px;
   padding: 12px;
   z-index: 99;
+}
+
+.navButton {
+  width: 275px;
+  padding: 5px 25px;
+  background-color: $background-secondary-dark;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navLink--disabled {
+  cursor: default;
+  color: $text-title-dark;
+  pointer-events: none;
+
+  &:hover {
+    color: $text-title-dark;
+  }
+
+  &::after {
+    transform: scaleX(0);
+  }
+}
+
+.toggleInput {
+  width: 25px;
+  height: 25px;
+  pointer-events: none;
+  background-color: $primary-dark;
+  appearance: none;
+  outline: none;
+  transition: background-color 0.5s ease;
+  border-radius: 8px;
+
+  &:checked {
+    background-color: $secondary; 
+  }
 }
 
 .dropdownVisible {
